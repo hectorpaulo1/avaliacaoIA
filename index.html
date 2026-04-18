@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Certificado — Imersão em IA · Hector Paulo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --g1: #1C4A3E;
+  --g2: #2C6B5A;
+  --gm: #5F7A6E;
+  --be: #EAE2D6;
+  --bl: #F5F0EA;
+  --co: #9B6B50;
+  --cl: #C4927A;
+  --td: #1A2E28;
+  --tm: #5A6E68;
+  --wh: #FFFFFF;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--g1);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 16px;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Background texture */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 60% 50% at 20% 20%, rgba(155,107,80,.12) 0%, transparent 60%),
+    radial-gradient(ellipse 40% 60% at 80% 80%, rgba(44,107,90,.2) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+/* Header */
+.site-header {
+  text-align: center;
+  margin-bottom: 32px;
+  position: relative;
+  z-index: 1;
+}
+.header-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(155,107,80,.2);
+  border: 1px solid rgba(196,146,122,.3);
+  color: var(--cl);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 6px 16px;
+  border-radius: 50px;
+  margin-bottom: 16px;
+}
+.dot { width: 5px; height: 5px; border-radius: 50%; background: var(--cl); animation: pulse 2s infinite; }
+@keyframes pulse { 0%,100%{opacity:1;transform:scale(1);} 50%{opacity:.4;transform:scale(.7);} }
+
+.header-title {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(28px, 7vw, 44px);
+  color: var(--be);
+  line-height: 1.1;
+  margin-bottom: 8px;
+}
+.header-title em { font-style: italic; color: var(--cl); }
+.header-sub {
+  font-size: 13px;
+  font-weight: 300;
+  color: rgba(234,226,214,.55);
+  line-height: 1.7;
+}
+
+/* Card */
+.card {
+  background: var(--wh);
+  border-radius: 20px;
+  padding: 40px 32px;
+  width: 100%;
+  max-width: 480px;
+  position: relative;
+  z-index: 1;
+  box-shadow: 0 24px 64px rgba(0,0,0,.25);
+}
+
+.card-header {
+  border-left: 3px solid var(--co);
+  padding-left: 14px;
+  margin-bottom: 28px;
+}
+.card-label {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--co);
+  margin-bottom: 4px;
+}
+.card-title {
+  font-family: 'DM Serif Display', serif;
+  font-size: 20px;
+  color: var(--td);
+  line-height: 1.2;
+}
+
+/* Form fields */
+.field { margin-bottom: 18px; }
+label {
+  display: block;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .5px;
+  text-transform: uppercase;
+  color: var(--tm);
+  margin-bottom: 7px;
+}
+label span { color: var(--cl); margin-left: 2px; }
+
+input, textarea {
+  width: 100%;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  color: var(--td);
+  background: var(--bl);
+  border: 1.5px solid rgba(28,74,62,.12);
+  border-radius: 10px;
+  padding: 13px 16px;
+  transition: border-color .2s, box-shadow .2s;
+  outline: none;
+  -webkit-appearance: none;
+}
+input:focus, textarea:focus {
+  border-color: var(--g1);
+  box-shadow: 0 0 0 3px rgba(28,74,62,.1);
+  background: var(--wh);
+}
+input::placeholder, textarea::placeholder { color: rgba(90,110,104,.45); }
+textarea { resize: vertical; min-height: 96px; line-height: 1.6; }
+
+/* Hint */
+.field-hint {
+  font-size: 11px;
+  color: var(--gm);
+  margin-top: 5px;
+}
+
+/* Submit button */
+.btn-submit {
+  width: 100%;
+  background: var(--g1);
+  color: var(--be);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  padding: 15px 24px;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: background .2s, transform .15s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 24px;
+  letter-spacing: .3px;
+  position: relative;
+}
+.btn-submit:hover { background: var(--g2); }
+.btn-submit:active { transform: scale(.98); }
+.btn-submit:disabled { opacity: .7; cursor: not-allowed; }
+
+/* Spinner */
+.spinner {
+  display: none;
+  width: 18px;
+  height: 18px;
+  border: 2px solid rgba(234,226,214,.4);
+  border-top-color: var(--be);
+  border-radius: 50%;
+  animation: spin .7s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+.btn-submit.loading .btn-text { opacity: 0; }
+.btn-submit.loading .spinner { display: block; position: absolute; }
+
+/* Success state */
+.success-view {
+  display: none;
+  text-align: center;
+  animation: fadeIn .4s ease;
+}
+@keyframes fadeIn { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:none; } }
+.success-icon {
+  width: 64px;
+  height: 64px;
+  background: rgba(28,74,62,.08);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  margin: 0 auto 20px;
+}
+.success-title {
+  font-family: 'DM Serif Display', serif;
+  font-size: 24px;
+  color: var(--td);
+  margin-bottom: 10px;
+}
+.success-desc {
+  font-size: 13px;
+  color: var(--tm);
+  line-height: 1.7;
+  margin-bottom: 24px;
+}
+.success-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(28,74,62,.07);
+  border: 1px solid rgba(28,74,62,.12);
+  color: var(--g1);
+  font-size: 12px;
+  font-weight: 600;
+  padding: 8px 18px;
+  border-radius: 50px;
+}
+
+/* Error message */
+.error-msg {
+  display: none;
+  background: rgba(185,28,28,.07);
+  border: 1px solid rgba(185,28,28,.18);
+  color: #9b1c1c;
+  font-size: 12px;
+  padding: 10px 14px;
+  border-radius: 8px;
+  margin-top: 12px;
+  text-align: center;
+}
+
+/* Footer */
+.footer {
+  margin-top: 28px;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+.footer p {
+  font-size: 11px;
+  color: rgba(234,226,214,.35);
+  line-height: 1.7;
+}
+
+/* Divider */
+.divider {
+  height: 1px;
+  background: rgba(28,74,62,.08);
+  margin: 20px 0;
+}
+
+/* Privacy note */
+.privacy-note {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  background: var(--bl);
+  border-radius: 8px;
+  padding: 12px 14px;
+  font-size: 11px;
+  color: var(--gm);
+  line-height: 1.55;
+  margin-top: 12px;
+}
+.privacy-note::before { content: '🔒'; font-size: 13px; flex-shrink: 0; margin-top: 1px; }
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<header class="site-header">
+  <div class="header-eyebrow">
+    <span class="dot"></span>
+    Imersão em IA · 18 de Abril de 2026
+  </div>
+  <h1 class="header-title">
+    Seu <em>certificado</em><br>está quase pronto
+  </h1>
+  <p class="header-sub">Preencha os dados abaixo · Entrega imediata por email</p>
+</header>
+
+<!-- Card -->
+<div class="card">
+
+  <!-- Form view -->
+  <div id="formView">
+    <div class="card-header">
+      <div class="card-label">📋 Dados do Participante</div>
+      <div class="card-title">Informações para o certificado</div>
+    </div>
+
+    <form id="certForm" novalidate>
+
+      <div class="field">
+        <label>Nome completo <span>*</span></label>
+        <input
+          type="text"
+          id="nome"
+          name="nome"
+          placeholder="Ex: Maria Clara Ferreira"
+          autocomplete="name"
+          required
+        >
+        <div class="field-hint">Exatamente como deve aparecer no certificado</div>
+      </div>
+
+      <div class="field">
+        <label>Email <span>*</span></label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          placeholder="seu@email.com"
+          autocomplete="email"
+          required
+        >
+        <div class="field-hint">O certificado será enviado para este endereço</div>
+      </div>
+
+      <div class="field">
+        <label>Telefone / WhatsApp <span>*</span></label>
+        <input
+          type="tel"
+          id="telefone"
+          name="telefone"
+          placeholder="(81) 9 9999-9999"
+          autocomplete="tel"
+          required
+        >
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="field">
+        <label>Seu depoimento <span>*</span></label>
+        <textarea
+          id="depoimento"
+          name="depoimento"
+          placeholder="O que você aprendeu? Como essa imersão pode impactar seu trabalho?"
+          required
+        ></textarea>
+        <div class="field-hint">Pode ser breve — conta muito para nós 🙏</div>
+      </div>
+
+      <button type="submit" class="btn-submit" id="submitBtn">
+        <span class="btn-text">🎓 Gerar e receber meu certificado</span>
+        <span class="spinner"></span>
+      </button>
+
+      <div class="error-msg" id="errorMsg">
+        Ocorreu um erro ao enviar. Tente novamente ou entre em contato pelo WhatsApp.
+      </div>
+
+      <div class="privacy-note">
+        Seus dados são usados exclusivamente para emissão do certificado e não serão compartilhados.
+      </div>
+
+    </form>
+  </div>
+
+  <!-- Success view -->
+  <div class="success-view" id="successView">
+    <div class="success-icon">🎓</div>
+    <div class="success-title">Certificado emitido!</div>
+    <p class="success-desc" id="successDesc">
+      Seu certificado foi enviado para <strong id="successEmail"></strong>.<br>
+      Verifique também a caixa de spam, caso não apareça em alguns minutos.
+    </p>
+    <div class="success-badge">
+      ✦ &nbsp;Imersão em IA · Hector Paulo
+    </div>
+  </div>
+
+</div>
+
+<!-- Footer -->
+<footer class="footer">
+  <p>Hector Paulo — Especialista em IA para Gestão e Negócios<br>
+  hectorpaulo@gmail.com · (81) 99601-4960</p>
+</footer>
+
+<script>
+// ============================================================
+// ⚠️  SUBSTITUA pela URL do seu Google Apps Script Web App
+// ============================================================
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyzk8Q18rJyHCWKniOrjKpN71eV879CDRfiatuB9gc80NLMs3Xh7rtBd66DrmYOMXEG/exec';
+// ============================================================
+
+const form = document.getElementById('certForm');
+const btn  = document.getElementById('submitBtn');
+
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+
+  const nome      = document.getElementById('nome').value.trim();
+  const email     = document.getElementById('email').value.trim();
+  const telefone  = document.getElementById('telefone').value.trim();
+  const depoimento= document.getElementById('depoimento').value.trim();
+
+  // Validação simples
+  if (!nome || !email || !telefone || !depoimento) {
+    alert('Por favor, preencha todos os campos.');
+    return;
+  }
+
+  // Loading state
+  btn.classList.add('loading');
+  btn.disabled = true;
+  document.getElementById('errorMsg').style.display = 'none';
+
+  try {
+    await fetch(SCRIPT_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify({ nome, email, telefone, depoimento })
+    });
+
+    // Mostra sucesso (o Apps Script processa em background)
+    document.getElementById('formView').style.display = 'none';
+    document.getElementById('successEmail').textContent = email;
+    const sv = document.getElementById('successView');
+    sv.style.display = 'block';
+
+  } catch (err) {
+    document.getElementById('errorMsg').style.display = 'block';
+    btn.classList.remove('loading');
+    btn.disabled = false;
+  }
+});
+</script>
+</body>
+</html>
