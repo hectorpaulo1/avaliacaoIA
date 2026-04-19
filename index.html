@@ -302,7 +302,7 @@ textarea { resize: vertical; min-height: 96px; line-height: 1.6; }
   <h1 class="header-title">
     Seu <em>certificado</em><br>está quase pronto
   </h1>
-  <p class="header-sub">Preencha os dados abaixo · Entrega imediata por email</p>
+  <p class="header-sub">Preencha os dados abaixo · Certificado enviado em breve</p>
 </header>
 
 <!-- Card -->
@@ -340,7 +340,7 @@ textarea { resize: vertical; min-height: 96px; line-height: 1.6; }
           autocomplete="email"
           required
         >
-        <div class="field-hint">O certificado será enviado para este endereço</div>
+        <div class="field-hint">O certificado será enviado para este endereço em breve</div>
       </div>
 
       <div class="field">
@@ -369,7 +369,7 @@ textarea { resize: vertical; min-height: 96px; line-height: 1.6; }
       </div>
 
       <button type="submit" class="btn-submit" id="submitBtn">
-        <span class="btn-text">🎓 Gerar e receber meu certificado</span>
+        <span class="btn-text">✅ Enviar dados e solicitar certificado</span>
         <span class="spinner"></span>
       </button>
 
@@ -386,11 +386,11 @@ textarea { resize: vertical; min-height: 96px; line-height: 1.6; }
 
   <!-- Success view -->
   <div class="success-view" id="successView">
-    <div class="success-icon">🎓</div>
-    <div class="success-title">Certificado emitido!</div>
+    <div class="success-icon">✅</div>
+    <div class="success-title">Dados recebidos!</div>
     <p class="success-desc" id="successDesc">
-      Seu certificado foi enviado para <strong id="successEmail"></strong>.<br>
-      Verifique também a caixa de spam, caso não apareça em alguns minutos.
+      Obrigado pelo seu depoimento!<br>
+      Seu certificado será enviado para <strong id="successEmail"></strong> em breve.
     </p>
     <div class="success-badge">
       ✦ &nbsp;Imersão em IA · Hector Paulo
@@ -409,7 +409,7 @@ textarea { resize: vertical; min-height: 96px; line-height: 1.6; }
 // ============================================================
 // ⚠️  SUBSTITUA pela URL do seu Google Apps Script Web App
 // ============================================================
-const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxnosoV3fGQfUYkj0AQVBnHG5OtQPdbTIc1jWp-scz1Kiv5KKW4CpHTGp5xcjWHrcgztQ/exec';
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxT13bpFnlYrGMtBs7SEmRfnHxbOvhwZbep3JRb2KRnqWqYGEnhXOoHix_pF4ifyxylqg/exec';
 // ============================================================
   
 const form = document.getElementById('certForm');
